@@ -1,0 +1,65 @@
+{
+  "name": "indesign-uxp-types",
+  "version": "1.0.0",
+  "description": "TypeScript declarations for the Adobe InDesign UXP scripting DOM — the `indesign` module.",
+  "author": "Vlad Vladila (Krommatine Systems)",
+  "license": "MIT",
+  "homepage": "https://github.com/vamitul/indesign-uxp-types#readme",
+  "bugs": {
+    "url": "https://github.com/vamitul/indesign-uxp-types/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vamitul/indesign-uxp-types.git"
+  },
+  "keywords": [
+    "indesign",
+    "adobe",
+    "uxp",
+    "typescript",
+    "types",
+    "scripting",
+    "plugin"
+  ],
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts"
+    },
+    "./authored": {
+      "types": "./authored.d.ts"
+    },
+    "./flat": {
+      "types": "./flat/module.d.ts"
+    },
+    "./types": {
+      "types": "./types/module.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "authored": [
+        "./authored.d.ts"
+      ],
+      "flat": [
+        "./flat/module.d.ts"
+      ],
+      "types": [
+        "./types/module.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "index.d.ts",
+    "authored.d.ts",
+    "types/",
+    "flat/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "peerDependencies": {
+    "@adobe/cc-ext-uxp-types": ">=7.3.1"
+  }
+}
