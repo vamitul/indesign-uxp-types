@@ -12,6 +12,16 @@
     "type": "git",
     "url": "git+https://github.com/vamitul/indesign-uxp-types.git"
   },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/vamitul"
+    },
+    {
+      "type": "buymeacoffee",
+      "url": "https://buymeacoffee.com/vamitul"
+    }
+  ],
   "keywords": [
     "indesign",
     "adobe",
