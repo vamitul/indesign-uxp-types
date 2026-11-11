@@ -1,7 +1,7 @@
 /**
  * Application.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -388,6 +388,33 @@ export interface Application<M extends Mode = 'single'> extends LabelableEventDO
   /** Whether applying an object style first clears any local overrides on the target. */
   get clearOverridesWhenApplyingStyle(): Read<M, boolean>;
   set clearOverridesWhenApplyingStyle(value: boolean);
+
+  /**
+   * Whether grammar checking is on: the same setting as in Preferences > Spelling. It applies
+   * to the whole application.
+   *
+   * @since 22.0
+   */
+  get grammarCheckPreference(): Read<M, boolean>;
+  set grammarCheckPreference(value: boolean);
+
+  /**
+   * Whether copy suggestions are on. It applies to the whole application.
+   *
+   * @since 22.0
+   */
+  get copySuggestionsPreference(): Read<M, boolean>;
+  set copySuggestionsPreference(value: boolean);
+
+  /**
+   * Whether Check Document (its consistency and table-summary checks) runs automatically on
+   * export: the same setting as in Preferences > Generative AI. It applies to the whole
+   * application.
+   *
+   * @since 22.0
+   */
+  get checkDocumentOnExportPreference(): Read<M, boolean>;
+  set checkDocumentOnExportPreference(value: boolean);
 
   /** The HTTP link connection manager — experimental. */
   get httpLinkConnectionManager(): Read<M, HttpLinkConnectionManagerObject>;
@@ -1167,7 +1194,22 @@ export interface Application<M extends Mode = 'single'> extends LabelableEventDO
   // ---- Scripting / workspace / windows -------------------------------------
 
   /**
+   * Runs a function as a single transaction (undo step) and returns what the function returns.
+   * The function runs at once, in the calling script, before `doScript` returns.
+   * @param script The function to run.
+   * @param language `ScriptLanguage.UXPSCRIPT`, or omitted.
+   * @param withArguments Arguments exposed to the script.
+   * @param undoMode How the function's changes are grouped for undo.
+   * @param undoName Undo-step name when `undoMode` is entire-script.
+   */
+  doScript<R>(script: (...args: never[]) => R, language?: ScriptLanguage.UXPSCRIPT, withArguments?: unknown[], undoMode?: UndoModes, undoName?: string): Read<M, R>;
+
+  /**
    * Executes a script as a single transaction (undo step).
+   *
+   * What comes back depends on the language. ExtendScript (`ScriptLanguage.JAVASCRIPT`) returns
+   * the value of the script's last expression. UXP script source returns `undefined` unless the
+   * script hands a value to `require("uxp").script.setResult()` before its first `await`.
    * @param script The script source, a file path, or a function.
    * @param language The script language; defaults to the calling language.
    * @param withArguments Arguments exposed to the script. Reachable from ExtendScript through `app.scriptArgs`, which UXP does not expose.
@@ -1360,3 +1402,34 @@ export interface Application<M extends Mode = 'single'> extends LabelableEventDO
   /** Creates a custom mini-folio from asset and overlay descriptions. */
   createCustomMiniFolio(miniFolioDescription: object[], destination: FilePath): Read<M, void>;
 }
+
+// The event names Application carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the Application type.
+export declare const Application: {
+  /** Dispatched after the Application changes. This event bubbles. This event is not cancelable. */
+  readonly HOME_SCREEN_VISIBILITY_CHANGE: 'homeScreenVisibilityChange';
+  /** Dispatched before a Document is created. This event bubbles. This event is cancelable. */
+  readonly BEFORE_NEW: 'beforeNew';
+  /** Dispatched before a Document is opened. This event bubbles. This event is cancelable. */
+  readonly BEFORE_OPEN: 'beforeOpen';
+  /** Dispatched after a Document is closed. This event bubbles. This event is not cancelable. */
+  readonly AFTER_CLOSE: 'afterClose';
+  /** Dispatched after the active context changes. This event bubbles. This event is not cancelable. */
+  readonly AFTER_CONTEXT_CHANGED: 'afterContextChanged';
+  /** Dispatched after the active selection changes. This event bubbles. This event is not cancelable. */
+  readonly AFTER_SELECTION_CHANGED: 'afterSelectionChanged';
+  /** Dispatched after an attribute on the active selection changes. This event bubbles. This event is not cancelable. */
+  readonly AFTER_SELECTION_ATTRIBUTE_CHANGED: 'afterSelectionAttributeChanged';
+  /** Dispatched before the Application becomes inactive. This event bubbles. This event is not cancelable. */
+  readonly BEFORE_DEACTIVATE: 'beforeDeactivate';
+  /** Dispatched after the Application becomes active. This event bubbles. This event is not cancelable. */
+  readonly AFTER_ACTIVATE: 'afterActivate';
+  /** Dispatched before a script method is invoked. This event bubbles. This event is not cancelable. */
+  readonly BEFORE_SCRIPT_METHOD: 'beforeScriptMethod';
+  /** Dispatched after a script method is invoked. This event bubbles. This event is not cancelable. */
+  readonly AFTER_SCRIPT_METHOD: 'afterScriptMethod';
+  /** Dispatched before the Application is quit. Allows the quit to be canceled. This event bubbles. This event is cancelable. */
+  readonly BEFORE_QUIT: 'beforeQuit';
+  /** Dispatched when the Application is quitting. Since the quit has been committed, it can not be canceled. This event bubbles. This event is not cancelable. */
+  readonly AFTER_QUIT: 'afterQuit';
+};

@@ -1,7 +1,7 @@
 /**
  * ToolBox.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -34,3 +34,10 @@ export interface ToolBox<M extends Mode = 'single'> extends EventTargetDOMObject
   get currentTool(): Read<M, UITools>;
   set currentTool(value: UITools);
 }
+
+// The event names ToolBox carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the ToolBox type.
+export declare const ToolBox: {
+  /** Dispatched when the value of a property changes on this ToolBox. This event bubbles. This event is not cancelable. */
+  readonly AFTER_ATTRIBUTE_CHANGED: 'afterAttributeChanged';
+};

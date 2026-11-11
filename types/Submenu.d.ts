@@ -1,7 +1,7 @@
 /**
  * Submenu.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -43,3 +43,10 @@ export interface Submenu<M extends Mode = 'single'> extends MenuElement<M>{
   /** The separators directly inside the Submenu. */
   readonly menuSeparators: MenuSeparators;
 }
+
+// The event names Submenu carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the Submenu type.
+export declare const Submenu: {
+  /** Dispatched before the Submenu is displayed. This event does not bubble. This event is not cancelable. */
+  readonly BEFORE_DISPLAY: 'beforeDisplay';
+};

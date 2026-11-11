@@ -1,7 +1,7 @@
 /**
  * Table.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -527,8 +527,6 @@ export interface Table {
   /** Resolves the proxy into the individual {@link Table} objects it stands for. */
   getElements(): Table[];
   // ---- Caption and header columns --------------------------------------------
-  // Absent from the InDesign 2026 object-model dictionary; modelled from the
-  // live UXP runtime.
 
   /** How many paragraphs at the start (or end) of the caption story belong to the caption. @default `0` */
   get captionParagraphCount(): number;
@@ -544,6 +542,16 @@ export interface Table {
   /** The name of the table; an alias for its {@link label}. */
   get name(): string;
   set name(value: string);
+  /**
+   * The accessibility summary (alt text) of the table. Assign an empty string to remove it.
+   *
+   * A table without a summary of its own reads the summary of its applied {@link TableStyle},
+   * or an empty string when that has none.
+   *
+   * @since 22.0
+   */
+  get tableSummary(): string;
+  set tableSummary(value: string);
   /** The {@link XMLItem} this table is associated with, if tagged. */
   readonly associatedXMLElement: XMLItem;
   /** The {@link InsertionPoint} immediately before the table in its containing story. */
@@ -1176,8 +1184,6 @@ export interface TablePlural {
   /** Resolves the proxy into the individual {@link Table} objects it stands for. */
   getElements(): Table[];
   // ---- Caption and header columns --------------------------------------------
-  // Absent from the InDesign 2026 object-model dictionary; modelled from the
-  // live UXP runtime.
 
   /** How many paragraphs at the start (or end) of the caption story belong to the caption. @default `0` */
   get captionParagraphCount(): (number)[];
@@ -1193,6 +1199,16 @@ export interface TablePlural {
   /** The name of the table; an alias for its {@link label}. */
   get name(): (string)[];
   set name(value: string);
+  /**
+   * The accessibility summary (alt text) of the table. Assign an empty string to remove it.
+   *
+   * A table without a summary of its own reads the summary of its applied {@link TableStyle},
+   * or an empty string when that has none.
+   *
+   * @since 22.0
+   */
+  get tableSummary(): (string)[];
+  set tableSummary(value: string);
   /** The {@link XMLItem} this table is associated with, if tagged. */
   readonly associatedXMLElement: (XMLItem)[];
   /** The {@link InsertionPoint} immediately before the table in its containing story. */

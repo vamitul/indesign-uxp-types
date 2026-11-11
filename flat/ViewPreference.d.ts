@@ -1,7 +1,7 @@
 /**
  * ViewPreference.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -165,6 +165,13 @@ export interface ViewPreference {
   /** If true, notes are displayed. */
   get showNotes(): boolean;
   set showNotes(value: boolean);
+  /**
+   * If true, displays the alt text icons on objects that carry alt text.
+   *
+   * @since 22.0
+   */
+  get showAltTextIcon(): boolean;
+  set showAltTextIcon(value: boolean);
 }
 
 
@@ -318,4 +325,11 @@ export interface ViewPreferencePlural {
   /** If true, notes are displayed. */
   get showNotes(): (boolean)[];
   set showNotes(value: boolean);
+  /**
+   * If true, displays the alt text icons on objects that carry alt text.
+   *
+   * @since 22.0
+   */
+  get showAltTextIcon(): (boolean)[];
+  set showAltTextIcon(value: boolean);
 }

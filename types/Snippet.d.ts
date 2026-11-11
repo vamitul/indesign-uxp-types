@@ -1,7 +1,7 @@
 /**
  * Snippet.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -129,3 +129,10 @@ export interface Snippet<M extends Mode = 'single'>
   /** Deletes the snippet. */
   remove(): Read<M, void>;
 }
+
+// The event names Snippet carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the Snippet type.
+export declare const Snippet: {
+  /** Dispatched before a Snippet is placed. This event bubbles. This event is cancelable. */
+  readonly BEFORE_PLACE: 'beforePlace';
+};

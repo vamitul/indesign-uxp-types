@@ -1,7 +1,7 @@
 /**
  * LayoutWindow.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -113,3 +113,24 @@ export interface LayoutWindow<M extends Mode = 'single'> extends Window<M>{
   zoom(given: ZoomOptions): Read<M, void>;
 
 }
+
+// The event names LayoutWindow carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the LayoutWindow type.
+export declare const LayoutWindow: {
+  /** Dispatched after the active selection changes. This event bubbles. This event is not cancelable. */
+  readonly AFTER_SELECTION_CHANGED: 'afterSelectionChanged';
+  /** Dispatched after an attribute on the active selection changes. This event bubbles. This event is not cancelable. */
+  readonly AFTER_SELECTION_ATTRIBUTE_CHANGED: 'afterSelectionAttributeChanged';
+  /** Dispatched before the LayoutWindow becomes inactive. This event bubbles. This event is not cancelable. */
+  readonly BEFORE_DEACTIVATE: 'beforeDeactivate';
+  /** Dispatched after the LayoutWindow becomes active. This event bubbles. This event is not cancelable. */
+  readonly AFTER_ACTIVATE: 'afterActivate';
+  /** Dispatched when the value of a property changes on this LayoutWindow. This event bubbles. This event is not cancelable. */
+  readonly AFTER_ATTRIBUTE_CHANGED: 'afterAttributeChanged';
+  /** Dispatched after a LayoutWindow is opened. This event bubbles. This event is not cancelable. */
+  readonly AFTER_OPEN: 'afterOpen';
+  /** Dispatched before a LayoutWindow is closed. This event bubbles. This event is cancelable. */
+  readonly BEFORE_CLOSE: 'beforeClose';
+  /** Dispatched when a LayoutWindow is closing. Since the close has been committed, it can no longer be canceled. This event bubbles. This event is not cancelable. */
+  readonly AFTER_CLOSE: 'afterClose';
+};

@@ -1,7 +1,7 @@
 /**
  * TableStyle.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -492,8 +492,7 @@ export interface TableStyle {
   /** Resolves the proxy into the individual {@link TableStyle} objects it stands for. */
   getElements(): TableStyle[];
   // ---- Caption and header columns --------------------------------------------
-  // Absent from the InDesign 2026 object-model dictionary; modelled from the
-  // live UXP runtime. Reading either on a style that does not define it throws
+  // Reading either on a style that does not define it throws
   // `This attribute is not defined for table styles`.
 
   /** How many paragraphs of the caption story the style formats. */
@@ -507,6 +506,16 @@ export interface TableStyle {
   /** The name of the table style. */
   get name(): string;
   set name(value: string);
+  /**
+   * The accessibility summary (alt text) the style gives its tables. Assign an empty string to
+   * remove it. An empty string when the style has none.
+   *
+   * A table with no summary of its own reads this one.
+   *
+   * @since 22.0
+   */
+  get tableSummary(): string;
+  set tableSummary(value: string);
   /** The style this style is based on. Accepts a {@link TableStyle} or its name. */
   get basedOn(): TableStyle | string;
   set basedOn(value: TableStyle | string);
@@ -989,8 +998,7 @@ export interface TableStylePlural {
   /** Resolves the proxy into the individual {@link TableStyle} objects it stands for. */
   getElements(): TableStyle[];
   // ---- Caption and header columns --------------------------------------------
-  // Absent from the InDesign 2026 object-model dictionary; modelled from the
-  // live UXP runtime. Reading either on a style that does not define it throws
+  // Reading either on a style that does not define it throws
   // `This attribute is not defined for table styles`.
 
   /** How many paragraphs of the caption story the style formats. */
@@ -1004,6 +1012,16 @@ export interface TableStylePlural {
   /** The name of the table style. */
   get name(): (string)[];
   set name(value: string);
+  /**
+   * The accessibility summary (alt text) the style gives its tables. Assign an empty string to
+   * remove it. An empty string when the style has none.
+   *
+   * A table with no summary of its own reads this one.
+   *
+   * @since 22.0
+   */
+  get tableSummary(): (string)[];
+  set tableSummary(value: string);
   /** The style this style is based on. Accepts a {@link TableStyle} or its name. */
   get basedOn(): (TableStyle | string)[];
   set basedOn(value: TableStyle | string);

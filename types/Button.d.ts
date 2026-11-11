@@ -1,7 +1,7 @@
 /**
  * Button.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -233,3 +233,12 @@ export interface Button<TParent = PageItemParent, M extends Mode = 'single'> ext
   /** Converts the button to the page item currently shown in its active state; page items from other states are lost. */
   convertToObject(): Read<M, void>;
 }
+
+// The event names Button carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the Button type.
+export declare const Button: {
+  /** Dispatched before a Button is placed. This event bubbles. This event is cancelable. */
+  readonly BEFORE_PLACE: 'beforePlace';
+  /** Dispatched after a Button is placed. This event bubbles. This event is not cancelable. */
+  readonly AFTER_PLACE: 'afterPlace';
+};

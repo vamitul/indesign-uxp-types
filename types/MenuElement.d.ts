@@ -1,7 +1,7 @@
 /**
  * MenuElement.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -23,8 +23,14 @@ export interface MenuElement<M extends Mode = 'single'>
   /** The object's DOM class name — reports the specific kind, such as `'MenuItem'` when the object is a {@link MenuItem}. */
   readonly constructorName: 'MenuElement' | 'MenuItem' | 'MenuSeparator' | 'Submenu';
 
-  /** Resolves the proxy into the individual {@link MenuElement} objects it stands for. */
-  getElements(): MenuElement<'single'>[];
+  /**
+   * Resolves the proxy into the individual elements it stands for, each at its own kind: a
+   * {@link MenuItem}, a {@link MenuSeparator} or a {@link Submenu}.
+   *
+   * An element reached through `item()` stays a plain {@link MenuElement}, without `name`, until
+   * it is resolved this way.
+   */
+  getElements(): (MenuItem | MenuSeparator | Submenu)[];
 
   /** Deletes the menu element. */
   remove(): Read<M, void>;

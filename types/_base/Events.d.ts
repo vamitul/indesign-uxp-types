@@ -1,7 +1,7 @@
 /**
  * Events.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Event } from '../Event';
@@ -14,6 +14,7 @@ import type { Document } from '../Document';
 import type { IdleTask } from '../IdleTask';
 import type { LayoutWindow } from '../LayoutWindow';
 import type { ScriptMenuAction } from '../ScriptMenuAction';
+import type { MenuAction } from '../MenuAction';
 
 /**
  * Which event object each event name delivers.
@@ -133,12 +134,26 @@ export interface InDesignEventMap {
   beforeMove: Event;
   /** An object has been moved. */
   afterMove: Event;
-  /** A menu action has been chosen. The event a {@link ScriptMenuAction} does its work on. */
-  onInvoke: Event;
-  /** A menu action is about to run. Cancellable, which is what makes it useful for intercepting a built-in command. */
-  beforeInvoke: Event;
-  /** A menu action has finished running. */
-  afterInvoke: Event;
+  /**
+   * A menu action has been chosen. The event a {@link ScriptMenuAction} does its work on.
+   *
+   * `target` is the action that was invoked.
+   */
+  onInvoke: Event & { readonly target: MenuAction };
+  /**
+   * A menu action is about to run. Cancellable, which is what makes it useful for intercepting a built-in command.
+   *
+   * `target` is the action about to run. Listen on the action itself: a listener on the
+   * application does not receive it.
+   */
+  beforeInvoke: Event & { readonly target: MenuAction };
+  /**
+   * A menu action has finished running.
+   *
+   * `target` is the action that ran. On Undo and Redo its `name` carries the step, such as
+   * `"Undo Add New Item"`.
+   */
+  afterInvoke: Event & { readonly target: MenuAction };
   /** A menu is about to be shown, the moment to enable or rename its items. Unreliable in practice — work that must happen is better done on `onInvoke`. */
   beforeDisplay: Event;
   /** The application is about to quit. Cancellable. */

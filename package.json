@@ -1,6 +1,6 @@
 {
   "name": "indesign-uxp-types",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "TypeScript declarations for the Adobe InDesign UXP scripting DOM — the `indesign` module.",
   "author": "Vlad Vladila (Krommatine Systems)",
   "license": "MIT",
@@ -67,7 +67,8 @@
     "flat/",
     "README.md",
     "LICENSE",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "KNOWN-ISSUES.md"
   ],
   "peerDependencies": {
     "@adobe/cc-ext-uxp-types": ">=7.3.1"

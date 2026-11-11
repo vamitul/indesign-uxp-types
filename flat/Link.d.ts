@@ -1,7 +1,7 @@
 /**
  * Link.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -220,6 +220,35 @@ export interface Link {
   goToSource(): void;
 }
 
+
+// The event names Link carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the Link type.
+export declare const Link: {
+  /** Dispatched after a Link is created. This event bubbles. This event is not cancelable. */
+  readonly AFTER_NEW: 'afterNew';
+  /** Dispatched before a Link is deleted. This event bubbles. This event is cancelable. */
+  readonly BEFORE_DELETE: 'beforeDelete';
+  /** Dispatched after a Link is deleted. This event bubbles. This event is not cancelable. */
+  readonly AFTER_DELETE: 'afterDelete';
+  /** Dispatched before a Link is updated. This event bubbles. This event is cancelable. */
+  readonly BEFORE_UPDATE: 'beforeUpdate';
+  /** Dispatched after a Link is updated. This event bubbles. This event is not cancelable. */
+  readonly AFTER_UPDATE: 'afterUpdate';
+  /** Dispatched before a Link is embedded. This event bubbles. This event is cancelable. */
+  readonly BEFORE_EMBED: 'beforeEmbed';
+  /** Dispatched after a Link is embedded. This event bubbles. This event is not cancelable. */
+  readonly AFTER_EMBED: 'afterEmbed';
+  /** Dispatched before a Link is unembedded. This event bubbles. This event is cancelable. */
+  readonly BEFORE_UNEMBED: 'beforeUnembed';
+  /** Dispatched after a Link is unembedded. This event bubbles. This event is not cancelable. */
+  readonly AFTER_UNEMBED: 'afterUnembed';
+  /** Dispatched before a Link is relocated from one object to another. This event bubbles. This event is cancelable. */
+  readonly BEFORE_MOVE: 'beforeMove';
+  /** Dispatched after a Link is relocated from one object to another. This event bubbles. This event is not cancelable. */
+  readonly AFTER_MOVE: 'afterMove';
+  /** Dispatched when the value of a property changes on this Link. This event bubbles. This event is not cancelable. */
+  readonly AFTER_ATTRIBUTE_CHANGED: 'afterAttributeChanged';
+};
 
 /**
  * The broadcast proxy for {@link Link} — what `everyItem()` returns.

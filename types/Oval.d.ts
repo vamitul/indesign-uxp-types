@@ -1,7 +1,7 @@
 /**
  * Oval.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -91,3 +91,12 @@ export interface Oval<TParent = PageItemParent, M extends Mode = 'single'> exten
   /** Removes the frame's fitting options, resetting them to the initial (no auto-fit) state. */
   clearFrameFittingOptions(): Read<M, void>;
 }
+
+// The event names Oval carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the Oval type.
+export declare const Oval: {
+  /** Dispatched before a Oval is placed. This event bubbles. This event is cancelable. */
+  readonly BEFORE_PLACE: 'beforePlace';
+  /** Dispatched after a Oval is placed. This event bubbles. This event is not cancelable. */
+  readonly AFTER_PLACE: 'afterPlace';
+};

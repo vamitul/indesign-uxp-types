@@ -1,7 +1,7 @@
 /**
  * TextFrame.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -261,3 +261,11 @@ export interface PlainTextFrame<TParent = PageItemParent, M extends Mode = 'sing
   readonly constructorName: 'TextFrame';
 }
 
+// The event names TextFrame carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the TextFrame type.
+export declare const TextFrame: {
+  /** Dispatched before a TextFrame is placed. This event bubbles. This event is cancelable. */
+  readonly BEFORE_PLACE: 'beforePlace';
+  /** Dispatched after a TextFrame is placed. This event bubbles. This event is not cancelable. */
+  readonly AFTER_PLACE: 'afterPlace';
+};

@@ -1,12 +1,13 @@
 /**
  * Document.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
 import type { IndexedDOMObject, LabelableEventDOMObject, NamableDOMObject } from './_base/DomObjects';
 import type { FilePath, FolderPath, File, Folder, MeasurementValue } from './_base/Types';
+import type { GrammarCheckable } from './_base/Grammar';
 
 import type { ColorSettingsPolicy } from './Enums/ColorSettingsPolicy';
 import type { ColorSpace } from './Enums/ColorSpace';
@@ -234,7 +235,8 @@ import type { AnyGraphic, AnyPageItem, SelectionItem } from './_base/Unions';
 export interface Document<M extends Mode = 'single'>
   extends LabelableEventDOMObject<Application, M>,
     IndexedDOMObject<Application, M>,
-    NamableDOMObject<Application, M> {
+    NamableDOMObject<Application, M>,
+    GrammarCheckable<M> {
   /** The object's DOM class name. */
   readonly constructorName: 'Document';
 
@@ -1379,3 +1381,50 @@ export interface Document<M extends Mode = 'single'>
   /** Internal use only — reserved for the InDesign engineering team. */
   internalMethod(internalParameter1: string, internalParameter2: string): Read<M, string>;
 }
+
+// The event names Document carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the Document type.
+export declare const Document: {
+  /** Dispatched before a Document is printed. This event bubbles. This event is cancelable. */
+  readonly BEFORE_PRINT: 'beforePrint';
+  /** Dispatched after a Document is printed. This event bubbles. This event is not cancelable. */
+  readonly AFTER_PRINT: 'afterPrint';
+  /** Dispatched after one or more links in the Document have been added, deleted, or modified. This event bubbles. This event is not cancelable. */
+  readonly AFTER_LINKS_CHANGED: 'afterLinksChanged';
+  /** Dispatched after a Document is created. This event bubbles. This event is not cancelable. */
+  readonly AFTER_NEW: 'afterNew';
+  /** Dispatched after a Document is opened. This event bubbles. This event is not cancelable. */
+  readonly AFTER_OPEN: 'afterOpen';
+  /** Dispatched before a Document is saved. This event bubbles. This event is cancelable. */
+  readonly BEFORE_SAVE: 'beforeSave';
+  /** Dispatched after a Document is saved. This event bubbles. This event is not cancelable. */
+  readonly AFTER_SAVE: 'afterSave';
+  /** Dispatched before a Document is saved under a new name. This event bubbles. This event is cancelable. */
+  readonly BEFORE_SAVE_AS: 'beforeSaveAs';
+  /** Dispatched after a Document is saved under a new name. This event bubbles. This event is not cancelable. */
+  readonly AFTER_SAVE_AS: 'afterSaveAs';
+  /** Dispatched before a copy of a Document is saved. This event bubbles. This event is cancelable. */
+  readonly BEFORE_SAVE_A_COPY: 'beforeSaveACopy';
+  /** Dispatched after a copy of a Document is saved. This event bubbles. This event is not cancelable. */
+  readonly AFTER_SAVE_A_COPY: 'afterSaveACopy';
+  /** Dispatched before a Document is reverted. This event bubbles. This event is cancelable. */
+  readonly BEFORE_REVERT: 'beforeRevert';
+  /** Dispatched after a Document is reverted. This event bubbles. This event is not cancelable. */
+  readonly AFTER_REVERT: 'afterRevert';
+  /** Dispatched before a Document is closed. This event bubbles. This event is not cancelable. */
+  readonly BEFORE_CLOSE: 'beforeClose';
+  /** Dispatched before a Document is exported. This event bubbles. This event is cancelable. */
+  readonly BEFORE_EXPORT: 'beforeExport';
+  /** Dispatched after a Document is exported. This event bubbles. This event is not cancelable. */
+  readonly AFTER_EXPORT: 'afterExport';
+  /** Dispatched after a Document export is canceled or fails. This event bubbles. This event is not cancelable. */
+  readonly FAILED_EXPORT: 'failedExport';
+  /** Dispatched before importing a file into a Document. This event bubbles. This event is cancelable. */
+  readonly BEFORE_IMPORT: 'beforeImport';
+  /** Dispatched after importing a file into a Document. This event bubbles. This event is not cancelable. */
+  readonly AFTER_IMPORT: 'afterImport';
+  /** Dispatched before the Document becomes inactive. This event bubbles. This event is not cancelable. */
+  readonly BEFORE_DEACTIVATE: 'beforeDeactivate';
+  /** Dispatched after the Document becomes active. This event bubbles. This event is not cancelable. */
+  readonly AFTER_ACTIVATE: 'afterActivate';
+};

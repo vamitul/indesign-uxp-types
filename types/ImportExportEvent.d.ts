@@ -1,7 +1,7 @@
 /**
  * ImportExportEvent.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -34,3 +34,18 @@ export interface ImportExportEvent<M extends Mode = 'single'> extends Event<M>{
   get userInteractionLevel(): Read<M, UserInteractionLevels>;
   set userInteractionLevel(value: UserInteractionLevels);
 }
+
+// The event names ImportExportEvent carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the ImportExportEvent type.
+export declare const ImportExportEvent: {
+  /** Dispatched before a ImportExportEvent is exported. This event bubbles. This event is cancelable. */
+  readonly BEFORE_EXPORT: 'beforeExport';
+  /** Dispatched after a ImportExportEvent is exported. This event bubbles. This event is not cancelable. */
+  readonly AFTER_EXPORT: 'afterExport';
+  /** Dispatched before importing a file into a ImportExportEvent. This event bubbles. This event is cancelable. */
+  readonly BEFORE_IMPORT: 'beforeImport';
+  /** Dispatched after importing a file into a ImportExportEvent. This event bubbles. This event is not cancelable. */
+  readonly AFTER_IMPORT: 'afterImport';
+  /** Dispatched after a ImportExportEvent export is canceled or fails. This event bubbles. This event is not cancelable. */
+  readonly FAILED_EXPORT: 'failedExport';
+};

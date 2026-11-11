@@ -1,12 +1,13 @@
 /**
  * Document.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
 import type { IndexedDOMObject, LabelableEventDOMObject, NamableDOMObject } from './_base/DomObjects';
 import type { FilePath, FolderPath, File, Folder, MeasurementValue } from './_base/Types';
+import type { GrammarCheckable } from './_base/Grammar';
 
 import type { ColorSettingsPolicy } from './Enums/ColorSettingsPolicy';
 import type { ColorSpace } from './Enums/ColorSpace';
@@ -347,6 +348,51 @@ export interface Document {
    */
   get name(): string;
   set name(value: string);
+  /**
+   * Checks the grammar of this text's story, or of every story on a document, and returns
+   * the issues found as a JSON string. The result also becomes the cached issue list that
+   * {@link getGrammarIssues}, {@link applyGrammarFix} and {@link applyAllGrammarFixes} work from.
+   *
+   * @since 22.0
+   */
+  checkGrammar(): string;
+  /**
+   * Returns the grammar issues currently cached for this text's story, or for every story on
+   * a document, as the same JSON string {@link checkGrammar} returns, without checking again.
+   * The cache holds what the last check, or the background checker, produced.
+   *
+   * @since 22.0
+   */
+  getGrammarIssues(): string;
+  /**
+   * Queues this text's story, or every story on a document, for the background grammar
+   * checker, and returns at once. Read the results later with {@link getGrammarIssues}.
+   *
+   * Returns the number of stories queued.
+   *
+   * @since 22.0
+   */
+  requestGrammarCheck(): number;
+  /**
+   * Applies a suggestion for one cached grammar issue.
+   *
+   * Returns `1` when the fix was applied, and `0` when it was not: the story has not been
+   * checked, no cached issue starts at `startIndex`, or `suggestionIndex` is out of range.
+   *
+   * @param startIndex The issue's `startIndex`, as {@link checkGrammar} or {@link getGrammarIssues} report it.
+   * @param suggestionIndex Which of the issue's `suggestions` to apply, counting from `0`.
+   * @since 22.0
+   */
+  applyGrammarFix(startIndex: number, suggestionIndex?: number): number;
+  /**
+   * Applies the first suggestion of every fixable cached issue in this text's story, or in
+   * every story on a document, skipping issues whose spans overlap.
+   *
+   * Returns the number of fixes applied: `0` when the story has not been checked.
+   *
+   * @since 22.0
+   */
+  applyAllGrammarFixes(): number;
   /** The object's DOM class name. */
   readonly constructorName: 'Document';
   /** Resolves the proxy into the individual {@link Document} objects it stands for. */
@@ -1210,6 +1256,53 @@ export interface Document {
 }
 
 
+// The event names Document carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the Document type.
+export declare const Document: {
+  /** Dispatched before a Document is printed. This event bubbles. This event is cancelable. */
+  readonly BEFORE_PRINT: 'beforePrint';
+  /** Dispatched after a Document is printed. This event bubbles. This event is not cancelable. */
+  readonly AFTER_PRINT: 'afterPrint';
+  /** Dispatched after one or more links in the Document have been added, deleted, or modified. This event bubbles. This event is not cancelable. */
+  readonly AFTER_LINKS_CHANGED: 'afterLinksChanged';
+  /** Dispatched after a Document is created. This event bubbles. This event is not cancelable. */
+  readonly AFTER_NEW: 'afterNew';
+  /** Dispatched after a Document is opened. This event bubbles. This event is not cancelable. */
+  readonly AFTER_OPEN: 'afterOpen';
+  /** Dispatched before a Document is saved. This event bubbles. This event is cancelable. */
+  readonly BEFORE_SAVE: 'beforeSave';
+  /** Dispatched after a Document is saved. This event bubbles. This event is not cancelable. */
+  readonly AFTER_SAVE: 'afterSave';
+  /** Dispatched before a Document is saved under a new name. This event bubbles. This event is cancelable. */
+  readonly BEFORE_SAVE_AS: 'beforeSaveAs';
+  /** Dispatched after a Document is saved under a new name. This event bubbles. This event is not cancelable. */
+  readonly AFTER_SAVE_AS: 'afterSaveAs';
+  /** Dispatched before a copy of a Document is saved. This event bubbles. This event is cancelable. */
+  readonly BEFORE_SAVE_A_COPY: 'beforeSaveACopy';
+  /** Dispatched after a copy of a Document is saved. This event bubbles. This event is not cancelable. */
+  readonly AFTER_SAVE_A_COPY: 'afterSaveACopy';
+  /** Dispatched before a Document is reverted. This event bubbles. This event is cancelable. */
+  readonly BEFORE_REVERT: 'beforeRevert';
+  /** Dispatched after a Document is reverted. This event bubbles. This event is not cancelable. */
+  readonly AFTER_REVERT: 'afterRevert';
+  /** Dispatched before a Document is closed. This event bubbles. This event is not cancelable. */
+  readonly BEFORE_CLOSE: 'beforeClose';
+  /** Dispatched before a Document is exported. This event bubbles. This event is cancelable. */
+  readonly BEFORE_EXPORT: 'beforeExport';
+  /** Dispatched after a Document is exported. This event bubbles. This event is not cancelable. */
+  readonly AFTER_EXPORT: 'afterExport';
+  /** Dispatched after a Document export is canceled or fails. This event bubbles. This event is not cancelable. */
+  readonly FAILED_EXPORT: 'failedExport';
+  /** Dispatched before importing a file into a Document. This event bubbles. This event is cancelable. */
+  readonly BEFORE_IMPORT: 'beforeImport';
+  /** Dispatched after importing a file into a Document. This event bubbles. This event is not cancelable. */
+  readonly AFTER_IMPORT: 'afterImport';
+  /** Dispatched before the Document becomes inactive. This event bubbles. This event is not cancelable. */
+  readonly BEFORE_DEACTIVATE: 'beforeDeactivate';
+  /** Dispatched after the Document becomes active. This event bubbles. This event is not cancelable. */
+  readonly AFTER_ACTIVATE: 'afterActivate';
+};
+
 /**
  * The broadcast proxy for {@link Document} — what `everyItem()` returns.
  *
@@ -1326,6 +1419,51 @@ export interface DocumentPlural {
    */
   get name(): (string)[];
   set name(value: string);
+  /**
+   * Checks the grammar of this text's story, or of every story on a document, and returns
+   * the issues found as a JSON string. The result also becomes the cached issue list that
+   * {@link getGrammarIssues}, {@link applyGrammarFix} and {@link applyAllGrammarFixes} work from.
+   *
+   * @since 22.0
+   */
+  checkGrammar(): (string)[];
+  /**
+   * Returns the grammar issues currently cached for this text's story, or for every story on
+   * a document, as the same JSON string {@link checkGrammar} returns, without checking again.
+   * The cache holds what the last check, or the background checker, produced.
+   *
+   * @since 22.0
+   */
+  getGrammarIssues(): (string)[];
+  /**
+   * Queues this text's story, or every story on a document, for the background grammar
+   * checker, and returns at once. Read the results later with {@link getGrammarIssues}.
+   *
+   * Returns the number of stories queued.
+   *
+   * @since 22.0
+   */
+  requestGrammarCheck(): (number)[];
+  /**
+   * Applies a suggestion for one cached grammar issue.
+   *
+   * Returns `1` when the fix was applied, and `0` when it was not: the story has not been
+   * checked, no cached issue starts at `startIndex`, or `suggestionIndex` is out of range.
+   *
+   * @param startIndex The issue's `startIndex`, as {@link checkGrammar} or {@link getGrammarIssues} report it.
+   * @param suggestionIndex Which of the issue's `suggestions` to apply, counting from `0`.
+   * @since 22.0
+   */
+  applyGrammarFix(startIndex: number, suggestionIndex?: number): (number)[];
+  /**
+   * Applies the first suggestion of every fixable cached issue in this text's story, or in
+   * every story on a document, skipping issues whose spans overlap.
+   *
+   * Returns the number of fixes applied: `0` when the story has not been checked.
+   *
+   * @since 22.0
+   */
+  applyAllGrammarFixes(): (number)[];
   /** The object's DOM class name. */
   readonly constructorName: 'Document';
   /** Resolves the proxy into the individual {@link Document} objects it stands for. */

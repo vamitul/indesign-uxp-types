@@ -1,10 +1,11 @@
 /**
  * TextContent.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './Types';
+import type { GrammarCheckable } from './Grammar';
 import type { Characters } from '../Characters';
 import type { CharacterStyle } from '../CharacterStyle';
 import type { ChangecaseMode } from '../Enums/ChangecaseMode';
@@ -158,7 +159,8 @@ export interface TextEmbeddedContent<M extends Mode = 'single'> {
  */
 export interface TextRangeContent<TChildParent = TextParent, M extends Mode = 'single'>
   extends TextContainerContent<TChildParent, M>,
-    TextEmbeddedContent<M>{
+    TextEmbeddedContent<M>,
+    GrammarCheckable<M>{
   /** {@link EndnoteRanges} covered by this range. */
   readonly endnoteRanges: EndnoteRanges;
 

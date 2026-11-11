@@ -11,8 +11,8 @@ VSCode or any TypeScript-aware editor.
 > only as a workaround, with real caveats. See
 > [Using it with ExtendScript](#using-it-with-extendscript-a-workaround).
 
-- **InDesign 2026**, modelled on Adobe's 21.5 object-model dictionary, which also covers 21.6.
-- Every class, enum and member the dictionary declares, checked against it on every build.
+- **InDesign 2027**, modelled on Adobe's 22.0 object-model dictionary. For InDesign 2026, use version 1.x.
+- Every class, enum and member the dictionary declares and UXP provides, checked against it on every build.
 - Hand-written and runtime-measured where the dictionary is vague or wrong: which values a
   property really accepts, what `everyItem()` returns, what a path getter resolves to.
 
@@ -102,6 +102,11 @@ Switch in `tsconfig.json` with `"types": ["indesign-uxp-types/authored"]`. Pick 
   `File` — `(await doc.fullName).nativePath` for the path. `filePath` is the containing folder.
 - **Collections can be empty.** With `noUncheckedIndexedAccess`, `getElements()[0]` is
   `T | undefined`, as it should be.
+- **An enum's name is also a type**, for any of its values: `let space: ColorSpace = color.space`,
+  or `function setUnits(u: MeasurementUnits)`. A single member is `ColorSpace.CMYK` as a type.
+- **`properties = {…}` rejects a misspelled key** in an object literal, with a suggestion. A bag
+  built elsewhere and passed as a variable is only checked for the keys it shares with the class:
+  TypeScript cannot reject extra keys there, and InDesign silently ignores them.
 
 ## Using it with ExtendScript: a workaround
 
@@ -133,9 +138,10 @@ use: the types describe what UXP does, and where ExtendScript differs, they will
 
 | package | InDesign | dictionary |
 |---|---|---|
+| 2.x | 2027 (22.0) | 22.0 |
 | 1.x | 2026 (21.5, 21.6) | 21.5 |
 
-What changed in each release: [CHANGELOG.md](CHANGELOG.md).
+What changed in each release: [CHANGELOG.md](CHANGELOG.md). Problems in InDesign itself that scripts run into, with workarounds: [KNOWN-ISSUES.md](KNOWN-ISSUES.md).
 
 ## Issues
 

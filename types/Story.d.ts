@@ -1,7 +1,7 @@
 /**
  * Story.d.ts — indesign-uxp-types
- * Adobe InDesign 2026 (21.x) UXP scripting DOM declarations.
- * Version: 1.0.0 · Updated: 2026-09-29
+ * Adobe InDesign 2027 (22.x) UXP scripting DOM declarations.
+ * Version: 2.0.0 · Updated: 2026-11-11
  * Author: Vlad Vladila (Krommatine Systems) · https://github.com/vamitul/indesign-uxp-types
  */
 import type { Mode, Read } from './_base/Types';
@@ -358,3 +358,12 @@ export interface Story<M extends Mode = 'single'>
   /** Whether the Nth design axis of the story's variable font is hidden. @param nthAxisIndex Index of the design axis. */
   isNthDesignAxisHidden(nthAxisIndex: number): Read<M, boolean>;
 }
+
+// The event names Story carries as constants (G-F248). No block JSDoc: it would merge
+// into the hover of the Story type.
+export declare const Story: {
+  /** Dispatched before a Story is placed. This event bubbles. This event is cancelable. */
+  readonly BEFORE_PLACE: 'beforePlace';
+  /** Dispatched after a Story is placed. This event bubbles. This event is not cancelable. */
+  readonly AFTER_PLACE: 'afterPlace';
+};
